@@ -1,0 +1,26 @@
+.contact-form {
+	font-size: 20px;
+}
+
+.contact-form__h1 {
+	color: #FFFFFF;
+	text-align: center;
+	margin-top: 100px;
+	margin-bottom: 0px;
+	font-size: 4em;
+	font-family: Verdana;
+	-webkit-text-stroke: 3px black;
+	font-weight: 800;
+
+}
+.parrafos {
+	text-align: center;
+	font-family: Verdana;
+	font-size: 1.3em;
+}
+
+body
+{
+    background-image: url("img/genshin2.jpg");
+    background-size: cover;
+}

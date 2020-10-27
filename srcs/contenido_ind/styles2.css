@@ -7,7 +7,7 @@
 	text-align: center;
 	margin-top: 100px;
 	margin-bottom: 0px;
-	font-size: 4em;
+	font-size: 4.7em;
 	font-family: Verdana;
 	-webkit-text-stroke: 3px black;
 	font-weight: 800;
@@ -24,3 +24,4 @@ body
     background-image: url("img/genshin2.jpg");
     background-size: cover;
 }
+

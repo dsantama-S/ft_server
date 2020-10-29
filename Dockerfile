@@ -8,6 +8,11 @@ RUN apt-get -y install mariadb-server mariadb-client
 
 RUN apt-get -y install php7.3 php7.3-fpm php7.3-mysql php-common php7.3-cli php7.3-common php7.3-json php7.3-opcache php7.3-readline
 
+RUN apt-get -y install openssl && \
+	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=SP/ST=Spain/L=Madrid/O=42/CN=127.0.0.1" -keyout /etc/ssl/private/dsantama.key -out /etc/ssl/certs/dsantama.crt && \
+	chmod 700 /etc/ssl/private && \
+	openssl dhparam -out /etc/nginx/dhparam.pem 1000
+  
 RUN rm -f /etc/nginx/sites-available/default && \
 	rm -f /etc/nginx/sites-enabled/default
 

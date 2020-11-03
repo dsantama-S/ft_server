@@ -22,10 +22,21 @@ RUN ln -s /etc/nginx/sites-available/my_default /etc/nginx/sites-enabled/
 
 COPY ./srcs/index.html /var/www/html/
 
+COPY ./srcs/wordpress /var/www/html/wordpress
+
 COPY ./srcs/phpmyadmin /var/www/html/phpmyadmin
 
 COPY ./srcs/info.php /var/www/html/
 
 COPY ./srcs/contenido_ind /var/www/html/contenido_ind
 
-ENTRYPOINT service nginx start && service php7.3-fpm start && bash
+RUN chown -R www-data:www-data /var/www/html && \
+	chmod -R 755 /var/www/html
+
+RUN service mysql start && \
+	echo "CREATE DATABASE wordpress;" | mysql -u root && \
+	echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost';" | mysql -u root && \
+	echo "FLUSH PRIVILEGES;" | mysql -u root && \
+	echo "update mysql.user set plugin = 'mysql_native_password' where user='root';" | mysql -u root
+
+ENTRYPOINT service nginx start && service php7.3-fpm start && service mysql start && bash

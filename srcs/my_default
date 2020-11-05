@@ -15,10 +15,11 @@ server {
 		ssl_certificate_key /etc/ssl/private/dsantama.key;
 		
 		root /var/www/html;
-		index index.html index.php index.htm index.nginx-debian.html;
+		index index.php index.html index.htm index.nginx-debian.html;
 		server_name localhost www.localhost;
 
 		location / {
+				autoindex on;
 				try_files $uri $uri/ =404;
 		}
 

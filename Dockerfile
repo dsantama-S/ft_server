@@ -1,5 +1,7 @@
 FROM debian:buster
 
+ENV AUTOINDEX=off
+
 RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install nginx -y
@@ -39,4 +41,5 @@ RUN service mysql start && \
 	echo "FLUSH PRIVILEGES;" | mysql -u root && \
 	echo "update mysql.user set plugin = 'mysql_native_password' where user='root';" | mysql -u root
 
-ENTRYPOINT service nginx start && service php7.3-fpm start && service mysql start && bash
+ENTRYPOINT if [ ${AUTOINDEX} = "on" ] ; then sed -i '23 s/autoindex off;/autoindex on;/g' /etc/nginx/sites-available/my_default; fi && \
+service nginx start && service php7.3-fpm start && service mysql start && bash

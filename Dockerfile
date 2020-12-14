@@ -22,6 +22,8 @@ COPY ./srcs/my_default /etc/nginx/sites-available/
 
 RUN ln -s /etc/nginx/sites-available/my_default /etc/nginx/sites-enabled/
 
+COPY ./srcs/php.ini /etc/php/7.3/fpm/
+
 COPY ./srcs/index.html /var/www/html/
 
 COPY ./srcs/wordpress /var/www/html/wordpress

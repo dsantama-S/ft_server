@@ -22,8 +22,6 @@ COPY ./srcs/my_default /etc/nginx/sites-available/
 
 RUN ln -s /etc/nginx/sites-available/my_default /etc/nginx/sites-enabled/
 
-COPY ./srcs/php.ini /etc/php/7.3/fpm/
-
 COPY ./srcs/index.html /var/www/html/
 
 COPY ./srcs/wordpress /var/www/html/wordpress
@@ -42,6 +40,10 @@ RUN service mysql start && \
 	echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost';" | mysql -u root && \
 	echo "FLUSH PRIVILEGES;" | mysql -u root && \
 	echo "update mysql.user set plugin = 'mysql_native_password' where user='root';" | mysql -u root
+
+RUN rm -rf /var/www/html/index.nginx-debian.html
+
+ENTRYPOINT if [ ${AUTOINDEX} = "on" ] ; then rm -rf /var/www/html/index.html
 
 ENTRYPOINT if [ ${AUTOINDEX} = "on" ] ; then sed -i '23 s/autoindex off;/autoindex on;/g' /etc/nginx/sites-available/my_default; fi && \
 service nginx start && service php7.3-fpm start && service mysql start && bash

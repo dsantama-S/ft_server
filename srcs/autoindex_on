@@ -1,0 +1,1 @@
+sed -i '23 s/autoindex off;/autoindex on;/g' ../../../etc/nginx/sites-available/my_default; service nginx restart
